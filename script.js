@@ -101,4 +101,43 @@ class PassengerList {
   }
 }
 
+// Datos de pasajeros para ejemplo
+function createPassenger(name, document) {
+  return { name, document };
+}
 
+// Simula la ruta con 5 paradas
+function simulateRoute() {
+  const passengerList = new PassengerList();
+
+ // Parada 0: subir pasajeros iniciales al final
+  passengerList.addEnd(createPassenger("Ana", "D001"));
+  passengerList.addEnd(createPassenger("Luis", "D002"));
+  passengerList.addEnd(createPassenger("María", "D003"));
+  passengerList.printStatus();
+
+  // Parada 1: sube 2 pasajeros al inicio, baja 1 pasajero
+  passengerList.addFront(createPassenger("Carlos", "D004"));
+  passengerList.addFront(createPassenger("Sofía", "D005"));
+  passengerList.removeByDocument("D002"); // Luis baja
+  passengerList.printStatus();
+
+    // Parada 2: sube 1 pasajero al final, busca un pasajero por nombre
+  passengerList.addEnd(createPassenger("Pedro", "D006"));
+  const buscado = passengerList.findByName("María");
+  console.log("Búsqueda por nombre 'María':", buscado);
+  passengerList.printStatus();
+
+   // Parada 3: baja 2 pasajeros
+  passengerList.removeByDocument("D001"); // Ana baja
+  passengerList.removeByDocument("D005"); // Sofía baja
+  passengerList.printStatus();
+
+   // Parada 4: sube 1 pasajero al inicio, busca por documento
+  passengerList.addFront(createPassenger("Laura", "D007"));
+  const buscadoDoc = passengerList.findByDocument("D003");
+  console.log("Búsqueda por documento 'D003':", buscadoDoc);
+  passengerList.printStatus();
+  
+  return passengerList;
+}
