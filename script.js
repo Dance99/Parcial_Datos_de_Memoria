@@ -141,3 +141,46 @@ function simulateRoute() {
   
   return passengerList;
 }
+
+// Medición del rendimiento
+function measurePerformance() {
+  const sizes = [10, 100, 1000];
+  sizes.forEach(size => {
+    const list = new PassengerList();
+    for (let i=0; i<size; i++) {
+      list.addEnd(createPassenger(`Nombre${i}`, `Doc${i}`));
+    }
+
+    let start, end;
+
+    start = performance.now();
+    list.addFront(createPassenger("TestFront", "DocTestFront"));
+    end = performance.now();
+    console.log(`Insertar al inicio con ${size} elementos: ${(end - start).toFixed(4)} ms`);
+
+    start = performance.now();
+    list.addEnd(createPassenger("TestEnd", "DocTestEnd"));
+    end = performance.now();
+    console.log(`Insertar al final con ${size} elementos: ${(end - start).toFixed(4)} ms`);
+
+    start = performance.now();
+    list.findByDocument(`Doc${Math.floor(size/2)}`);
+    end = performance.now();
+    console.log(`Buscar por documento con ${size} elementos: ${(end - start).toFixed(4)} ms`);
+
+    start = performance.now();
+    list.removeByDocument(`Doc${Math.floor(size/2)}`);
+    end = performance.now();
+    console.log(`Eliminar por documento con ${size} elementos: ${(end - start).toFixed(4)} ms`);
+
+    console.log('---------------------------');
+  });
+}
+
+// Ejecutar simulación
+console.log("Simulación de ruta con gestión dinámica de pasajeros:");
+const finalList = simulateRoute();
+
+// Medir rendimiento
+console.log("Medición de rendimiento:");
+measurePerformance();
