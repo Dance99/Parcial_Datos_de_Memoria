@@ -55,3 +55,50 @@ class PassengerList {
           }
     }
   }
+
+  //* Buscar pasajeros por nombre (case-insensitive)
+  findByName(name) {
+    let current = this.head;  //* Empezar desde la cabeza de la lista
+    const results = [];
+    while (current) {
+      if (current.passenger.name.toLowerCase() === name.toLowerCase()) { //* Comparación case-insensitive
+        results.push(current.passenger); //* Añadir pasajero a los resultados
+      }
+      current = current.next; 
+    }
+    return results;
+  }
+
+   //* Buscar pasajero por documento (exact match)
+  findByDocument(document) {
+    let current = this.head;
+    while (current) {
+      if (current.passenger.document === document) {
+        return current.passenger;
+      }
+      current = current.next;
+    }
+    return null;
+  }
+
+  //* Imprimir el estado actual del bus
+  printStatus() {
+    console.log("Estado actual del bus:");  
+    console.log(`Total pasajeros: ${this.size}`);
+    //* Mostrar primer y último pasajero
+    if (this.head) console.log(`Primer pasajero: ${this.head.passenger.name}, Doc: ${this.head.passenger.document}`);
+    if (this.tail) console.log(`Último pasajero: ${this.tail.passenger.name}, Doc: ${this.tail.passenger.document}`);
+    console.log("Lista completa de pasajeros:");
+    //* Recorrer la lista e imprimir cada pasajero
+    let current = this.head;
+    let idx = 1;
+    while (current) {  //* Mientras haya nodos
+      console.log(`${idx}. ${current.passenger.name} (Doc: ${current.passenger.document})`); //* Imprimir detalles del pasajero
+      current = current.next;
+      idx++;
+    }
+    console.log("----------------------"); //* Separador para claridad
+  }
+}
+
+
