@@ -53,7 +53,9 @@ class PassengerList {
             this.size--; //* Decrementar el tamaño de la lista
             return true;  //* Pasajero eliminado
           }
-    }
+          current = current.next;
+      }
+      return false;  //* Pasajero no encontrado
   }
 
   //* Buscar pasajeros por nombre (case-insensitive)
@@ -147,7 +149,7 @@ function measurePerformance() {
   const sizes = [10, 100, 1000];
   sizes.forEach(size => {
     const list = new PassengerList();
-    for (let i=0; i<size; i++) {
+    for (let i = 0; i < size; i++) {
       list.addEnd(createPassenger(`Nombre${i}`, `Doc${i}`));
     }
 
@@ -184,3 +186,4 @@ const finalList = simulateRoute();
 // Medir rendimiento
 console.log("Medición de rendimiento:");
 measurePerformance();
+
